@@ -132,9 +132,9 @@
             <div class="card__media"><img src="assets/projects/bierplank-1.jpg" alt="Round bierplank with green and blue stripes, eleven glass holders and an engraved acrylic centre piece" loading="lazy"></div>
             <div class="card__body">
               <span class="tag"><i class="dot dot--red"></i>2021 · Laser cutting · 3D printing</span>
-              <h3 class="title"><button class="card__open" type="button" aria-haspopup="dialog">Over-engineering a bierplank</button></h3>
+              <h3 class="title">Over-engineering a bierplank</h3>
               <p>A custom beer board for my JC, designed in Onshape and still going strong five years later.</p>
-              <span class="card__more" aria-hidden="true">Read more &rarr;</span>
+              <button class="card__more card__open" type="button" aria-haspopup="dialog">Read more<span class="sr-only"> about Over-engineering a bierplank</span> &rarr;</button>
             </div>
             <div class="project__detail" hidden>
               <p class="kicker kicker--red">2021 — Personal project</p>
@@ -148,6 +148,7 @@
                 <li class="tag"><i class="dot dot--orange"></i>3D printing</li>
                 <li class="tag"><i class="dot dot--green"></i>Painting</li>
               </ul>
+              <p class="gallery__hint">Click a photo to see it full size.</p>
               <div class="gallery">
                 <img src="assets/projects/bierplank-1.jpg" alt="The finished bierplank in use, with green and blue stripes and the engraved acrylic centre" loading="lazy">
                 <img src="assets/projects/bierplank-2.jpg" alt="The bierplank on the workbench while being painted, with paint pots in the background" loading="lazy">
@@ -161,6 +162,15 @@
               <span class="tag"><i class="dot dot--orange"></i>Car projects</span>
               <h3 class="title">More projects coming soon</h3>
               <p>Working on cars: fixing them, restoring them and improving them.</p>
+            </div>
+          </li>
+
+          <li class="card slide card--soon">
+            <div class="card__media ph ph--yellow" aria-hidden="true"></div>
+            <div class="card__body">
+              <span class="tag"><i class="dot dot--yellow"></i>Build</span>
+              <h3 class="title">More projects coming soon</h3>
+              <p>Smaller builds: 3D printing, laser cutting and Arduino.</p>
             </div>
           </li>
 
@@ -310,8 +320,8 @@
 </footer>
 
 <dialog class="project-dialog" id="project-dialog" aria-label="Project details">
+  <button class="btn btn--glass project-dialog__close" type="button" aria-label="Close project">&times;</button>
   <div class="project-dialog__panel">
-    <button class="btn btn--glass project-dialog__close" type="button" aria-label="Close project">&times;</button>
     <div class="project-dialog__content"></div>
   </div>
 </dialog>
@@ -350,6 +360,15 @@
     if (!opener || !detail) return;
     opener.addEventListener('click', function () {
       dialogContent.innerHTML = detail.innerHTML;
+      dialogContent.querySelectorAll('.gallery img').forEach(function (img) {
+        var link = document.createElement('a');
+        link.href = img.getAttribute('src');
+        link.target = '_blank';
+        link.rel = 'noopener';
+        link.setAttribute('aria-label', img.alt + ' (opens full size)');
+        img.parentNode.insertBefore(link, img);
+        link.appendChild(img);
+      });
       lastOpener = opener;
       dialog.showModal();
       dialog.scrollTop = 0;

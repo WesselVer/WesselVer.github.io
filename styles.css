@@ -421,39 +421,45 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   .nav--liquid { background: var(--glass-fill-strong); }
 }
 
-/* Personal projects: card carousel that opens a project */
+/* Personal projects: three small cards per view, newest first; Read more opens the project */
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .carousel--cards { margin-top: var(--space-8); }
 .carousel--cards .slide {
-  flex: 0 0 min(340px, 85%);
+  flex: 0 0 calc((100% - 2 * var(--space-6)) / 3);
   border-radius: var(--radius-lg); background: var(--paper); border: 1px solid var(--line);
 }
+@media (max-width: 900px) { .carousel--cards .slide { flex-basis: calc((100% - var(--space-6)) / 2); } }
+@media (max-width: 600px) { .carousel--cards .slide { flex-basis: 80%; } }
 .carousel--cards .slide img { aspect-ratio: auto; }
 .carousel--cards .card:hover { transform: none; }
-.project { position: relative; cursor: pointer; }
-.project:hover .card__media img { transform: scale(1.03); }
+.carousel--cards .card__body { padding: var(--space-4) var(--space-6) var(--space-6); }
+.project { position: relative; }
 .card__media { overflow: hidden; }
 .card__media img { transition: transform 0.4s ease; }
-.card__open {
-  all: unset; cursor: pointer;
+.project:hover .card__media img { transform: scale(1.03); }
+.card__more {
+  all: unset; justify-self: start; cursor: pointer;
+  color: var(--plum); font-size: 14px; font-weight: 600; margin-top: var(--space-1);
 }
-.card__open::after { content: ""; position: absolute; inset: 0; border-radius: var(--radius-lg); }
+.card__more:hover { text-decoration: underline; text-underline-offset: 3px; }
+.card__open::after { content: ""; position: absolute; inset: 0; border-radius: var(--radius-lg); cursor: pointer; }
 .card__open:focus-visible { outline: none; }
 .card__open:focus-visible::after { outline: 2px solid var(--plum); outline-offset: -2px; }
-.card__more { color: var(--plum); font-size: 14px; font-weight: 600; margin-top: var(--space-1); }
 .card--soon { opacity: 0.85; }
 
-/* Project pop-up */
+/* Project pop-up: rounded glass panel that scrolls inside, small photos */
 .project-dialog {
   padding: 0; border: 0; background: transparent; color: var(--ink);
-  width: min(880px, 100% - 32px); max-width: none;
-  max-height: calc(100% - 32px); overflow: auto; overscroll-behavior: contain;
+  width: min(760px, 100% - 32px); max-width: none; max-height: none;
+  border-radius: var(--radius-lg); overflow: visible;
 }
 .project-dialog::backdrop {
   background: rgba(20, 18, 14, 0.45);
   -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
 }
 .project-dialog__panel {
-  position: relative; border-radius: var(--radius-lg);
+  border-radius: var(--radius-lg);
+  max-height: calc(100dvh - 32px); overflow-y: auto; overscroll-behavior: contain;
   padding: var(--space-12);
   background-color: var(--glass-fill-strong);
   background-image: linear-gradient(135deg, var(--glass-sheen), transparent 40%);
@@ -468,13 +474,16 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .project-dialog__content p:not(.kicker) { max-width: 65ch; }
 .project-dialog__content .tags { margin-top: var(--space-2); }
 .project-dialog__close {
-  position: absolute; top: var(--space-4); right: var(--space-4);
+  position: absolute; z-index: 1; top: var(--space-4); right: var(--space-4);
   width: 44px; height: 44px; padding: 0; font-size: 24px; line-height: 1;
 }
-.gallery {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
-  gap: var(--space-3); margin-top: var(--space-4); align-items: start;
+.gallery__hint { color: var(--ink-muted); font-size: 13px; margin-top: var(--space-2); }
+.gallery { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+.gallery a { display: block; border-radius: var(--radius-md); }
+.gallery img {
+  height: 140px; width: auto; max-width: 100%; object-fit: cover;
+  border-radius: var(--radius-md); transition: transform 0.2s ease;
 }
-.gallery img { width: 100%; height: auto; border-radius: var(--radius-md); }
+.gallery a:hover img { transform: scale(1.03); }
 body:has(.project-dialog[open]) { overflow: hidden; }
-@media (prefers-reduced-motion: reduce) { .card__media img { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .card__media img, .gallery img { transition: none; } }
