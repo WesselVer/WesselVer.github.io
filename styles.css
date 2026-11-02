@@ -374,3 +374,48 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .carousel__controls { display: flex; gap: var(--space-2); justify-content: flex-end; }
 .carousel__btn { width: 48px; height: 48px; padding: 0; font-size: 18px; }
 @media (prefers-reduced-motion: reduce) { .carousel__track { scroll-behavior: auto; } }
+
+/* Top bar: clear liquid glass. Thin tint, strong blur and saturation, bright rim and a specular highlight. */
+:root {
+  --nav-fill-top: rgba(255, 255, 255, 0.30);
+  --nav-fill-bottom: rgba(255, 255, 255, 0.08);
+  --nav-rim: rgba(255, 255, 255, 0.65);
+  --nav-glint: rgba(255, 255, 255, 0.75);
+  --nav-depth: rgba(28, 26, 22, 0.14);
+  --nav-text-shadow: 0 1px 0 rgba(255, 255, 255, 0.55);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --nav-fill-top: rgba(255, 255, 255, 0.12);
+    --nav-fill-bottom: rgba(255, 255, 255, 0.03);
+    --nav-rim: rgba(255, 255, 255, 0.22);
+    --nav-glint: rgba(255, 255, 255, 0.28);
+    --nav-depth: rgba(0, 0, 0, 0.45);
+    --nav-text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+  }
+}
+.nav--liquid {
+  position: relative; isolation: isolate;
+  background: linear-gradient(180deg, var(--nav-fill-top), var(--nav-fill-bottom));
+  -webkit-backdrop-filter: blur(12px) saturate(200%) brightness(1.04);
+  backdrop-filter: blur(12px) saturate(200%) brightness(1.04);
+  border: 1px solid var(--nav-rim);
+  box-shadow:
+    inset 0 1px 0 var(--nav-glint),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.18),
+    inset 0 -12px 24px -16px var(--nav-glint),
+    0 10px 30px var(--nav-depth);
+  padding-block: 10px;
+}
+.nav--liquid::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit; pointer-events: none;
+  background:
+    radial-gradient(120% 140% at 12% -40%, var(--nav-glint), transparent 45%),
+    radial-gradient(80% 120% at 92% 140%, rgba(255, 255, 255, 0.14), transparent 50%);
+  opacity: 0.7;
+}
+.nav--liquid .nav__brand,
+.nav--liquid .nav__links a { text-shadow: var(--nav-text-shadow); }
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .nav--liquid { background: var(--glass-fill-strong); }
+}
