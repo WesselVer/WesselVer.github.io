@@ -487,3 +487,12 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .gallery a:hover img { transform: scale(1.03); }
 body:has(.project-dialog[open]) { overflow: hidden; }
 @media (prefers-reduced-motion: reduce) { .card__media img, .gallery img { transition: none; } }
+
+/* Published paper reference inside a project pop-up */
+.paper {
+  display: grid; gap: var(--space-1);
+  padding: var(--space-4) var(--space-6); border-radius: var(--radius-md);
+  background: var(--glass-fill); border: 1px solid var(--line);
+}
+.paper__title { font-weight: 700; }
+.paper__meta { color: var(--ink-muted); font-size: 13px; }
