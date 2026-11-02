@@ -291,15 +291,20 @@
 <script>
   document.querySelectorAll('.carousel').forEach(function (c) {
     var track = c.querySelector('.carousel__track');
+    var slides = Array.prototype.slice.call(track.querySelectorAll('.slide'));
+    function offset(el) { return el.getBoundingClientRect().left - track.getBoundingClientRect().left + track.scrollLeft; }
     c.querySelectorAll('.carousel__btn').forEach(function (b) {
       b.addEventListener('click', function () {
-        var slide = track.querySelector('.slide');
-        var step = slide ? slide.getBoundingClientRect().width + 24 : track.clientWidth;
-        var dir = Number(b.dataset.dir);
+        var current = 0, best = Infinity;
+        slides.forEach(function (el, i) {
+          var d = Math.abs(offset(el) - track.scrollLeft);
+          if (d < best) { best = d; current = i; }
+        });
         var atEnd = track.scrollLeft + track.clientWidth >= track.scrollWidth - 4;
-        if (dir > 0 && atEnd) track.scrollTo({ left: 0, behavior: 'smooth' });
-        else if (dir < 0 && track.scrollLeft <= 4) track.scrollTo({ left: track.scrollWidth, behavior: 'smooth' });
-        else track.scrollBy({ left: dir * step, behavior: 'smooth' });
+        var next = current + Number(b.dataset.dir);
+        if (next >= slides.length || (Number(b.dataset.dir) > 0 && atEnd)) next = 0;
+        if (next < 0) next = slides.length - 1;
+        track.scrollTo({ left: offset(slides[next]), behavior: 'smooth' });
       });
     });
   });
