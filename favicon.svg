@@ -1,4 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="14" fill="#8b438b"/>
-  <text x="32" y="43" text-anchor="middle" font-family="Archivo, 'Arial Black', 'Helvetica Neue', Arial, sans-serif" font-weight="900" font-size="28" letter-spacing="-1" fill="#f4efd8">W.I</text>
+  <!-- Vintage-Apple-style rainbow, using the six palette colours in that order -->
+  <defs><clipPath id="r"><rect width="64" height="64" rx="14"/></clipPath></defs>
+  <g clip-path="url(#r)">
+    <rect y="0" width="64" height="11" fill="#79ba58"/>
+    <rect y="10.67" width="64" height="11" fill="#f2bb4b"/>
+    <rect y="21.33" width="64" height="11" fill="#e8883c"/>
+    <rect y="32" width="64" height="11" fill="#ce4944"/>
+    <rect y="42.67" width="64" height="11" fill="#8c4192"/>
+    <rect y="53.33" width="64" height="10.67" fill="#469bd7"/>
+  </g>
+  <text x="32" y="43" text-anchor="middle" font-family="Archivo, 'Arial Black', 'Helvetica Neue', Arial, sans-serif" font-weight="900" font-size="28" letter-spacing="-1" fill="#f4efd8" stroke="#1c1a16" stroke-width="4" stroke-linejoin="round" paint-order="stroke">W.I</text>
 </svg>
