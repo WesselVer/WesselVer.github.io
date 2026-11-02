@@ -1,8 +1,10 @@
-# Wessel Verstelle — portfolio
+# Wessel Verstelle: portfolio
 
-Personal website with my CV, my gap year at Solar Boat Twente, personal (car) projects and university projects.
+Personal website for my CV, my gap year at Solar Boat Twente, personal (car) projects and university projects.
 
 Plain HTML and CSS, hosted on GitHub Pages. Edit `index.html` for content and `styles.css` for styling.
+
+Made by me and Claude (ofcourse)
 
 ## Adding a project
 
@@ -13,4 +15,4 @@ Copy an `<article class="card">` block in `index.html`, change the text, and swa
 <div class="card__media"><img src="assets/my-photo.jpg" alt="What the photo shows"></div>
 ```
 
-Keep images under ~500 KB (resize to ~1600 px wide) so the site stays fast.
+Keep images under ~500 KB (resize to ~1600 px wide) so the site stays fast & responsive.
