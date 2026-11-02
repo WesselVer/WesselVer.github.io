@@ -77,6 +77,7 @@ body {
   overflow-x: hidden;
 }
 img { max-width: 100%; display: block; }
+[hidden] { display: none !important; }
 a { color: var(--plum); text-underline-offset: 3px; }
 :focus-visible { outline: 2px solid var(--plum); outline-offset: 2px; }
 p { margin: 0; }
@@ -419,3 +420,61 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
   .nav--liquid { background: var(--glass-fill-strong); }
 }
+
+/* Personal projects: card carousel that opens a project */
+.carousel--cards { margin-top: var(--space-8); }
+.carousel--cards .slide {
+  flex: 0 0 min(340px, 85%);
+  border-radius: var(--radius-lg); background: var(--paper); border: 1px solid var(--line);
+}
+.carousel--cards .slide img { aspect-ratio: auto; }
+.carousel--cards .card:hover { transform: none; }
+.project { position: relative; cursor: pointer; }
+.project:hover .card__media img { transform: scale(1.03); }
+.card__media { overflow: hidden; }
+.card__media img { transition: transform 0.4s ease; }
+.card__open {
+  all: unset; cursor: pointer;
+}
+.card__open::after { content: ""; position: absolute; inset: 0; border-radius: var(--radius-lg); }
+.card__open:focus-visible { outline: none; }
+.card__open:focus-visible::after { outline: 2px solid var(--plum); outline-offset: -2px; }
+.card__more { color: var(--plum); font-size: 14px; font-weight: 600; margin-top: var(--space-1); }
+.card--soon { opacity: 0.85; }
+
+/* Project pop-up */
+.project-dialog {
+  padding: 0; border: 0; background: transparent; color: var(--ink);
+  width: min(880px, 100% - 32px); max-width: none;
+  max-height: calc(100% - 32px); overflow: auto; overscroll-behavior: contain;
+}
+.project-dialog::backdrop {
+  background: rgba(20, 18, 14, 0.45);
+  -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+}
+.project-dialog__panel {
+  position: relative; border-radius: var(--radius-lg);
+  padding: var(--space-12);
+  background-color: var(--glass-fill-strong);
+  background-image: linear-gradient(135deg, var(--glass-sheen), transparent 40%);
+  -webkit-backdrop-filter: blur(var(--glass-blur-strong)) saturate(170%);
+  backdrop-filter: blur(var(--glass-blur-strong)) saturate(170%);
+  border: 1px solid var(--glass-edge); box-shadow: var(--glass-shadow-lift);
+}
+@media (max-width: 640px) { .project-dialog__panel { padding: var(--space-6); padding-top: var(--space-12); } }
+.project-dialog__content { display: grid; gap: var(--space-4); }
+.project-dialog__content .kicker { margin-bottom: 0; }
+.project-dialog__content .headline { margin-bottom: var(--space-2); padding-right: var(--space-12); }
+.project-dialog__content p:not(.kicker) { max-width: 65ch; }
+.project-dialog__content .tags { margin-top: var(--space-2); }
+.project-dialog__close {
+  position: absolute; top: var(--space-4); right: var(--space-4);
+  width: 44px; height: 44px; padding: 0; font-size: 24px; line-height: 1;
+}
+.gallery {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
+  gap: var(--space-3); margin-top: var(--space-4); align-items: start;
+}
+.gallery img { width: 100%; height: auto; border-radius: var(--radius-md); }
+body:has(.project-dialog[open]) { overflow: hidden; }
+@media (prefers-reduced-motion: reduce) { .card__media img { transition: none; } }

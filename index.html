@@ -121,33 +121,54 @@
     <div class="wrap">
       <p class="kicker kicker--red">Ongoing & Personal projects</p>
       <h2 class="headline">Cars and other builds</h2>
-      <p class="intro">Most of my own projects involve cars: working on them, fixing them and improving them. Write-ups with photos are on the way.</p>
-      <div class="grid">
-        <!-- To add a project: copy one <article> and change the text. Swap the placeholder div for <img src="assets/..." alt="..."> -->
-        <article class="card">
-          <div class="card__media ph ph--red" aria-hidden="true"></div>
-          <div class="card__body">
-            <span class="tag"><i class="dot dot--red"></i>Car project</span>
-            <h3 class="title">Project write-up coming soon</h3>
-            <p>What I worked on, what went wrong and what I learned.</p>
-          </div>
-        </article>
-        <article class="card">
-          <div class="card__media ph ph--orange" aria-hidden="true"></div>
-          <div class="card__body">
-            <span class="tag"><i class="dot dot--orange"></i>Car project</span>
-            <h3 class="title">Project write-up coming soon</h3>
-            <p>Restoration, mechanics and electronics.</p>
-          </div>
-        </article>
-        <article class="card">
-          <div class="card__media ph ph--yellow" aria-hidden="true"></div>
-          <div class="card__body">
-            <span class="tag"><i class="dot dot--yellow"></i>Build</span>
-            <h3 class="title">Project write-up coming soon</h3>
-            <p>Smaller builds: 3D printing, laser cutting and Arduino.</p>
-          </div>
-        </article>
+      <p class="intro">Things I've built in my own time, newest first. Click a project to read the full story.</p>
+
+      <!-- Projects carousel, newest first. To add a project: copy one <article class="card project slide">,
+           put it at the top, and fill in the card text and the hidden project__detail part. -->
+      <div class="carousel carousel--cards" aria-roledescription="carousel" aria-label="Personal projects">
+        <ul class="carousel__track" id="projects-track" tabindex="0">
+
+          <li class="card project slide">
+            <div class="card__media"><img src="assets/projects/bierplank-1.jpg" alt="Round bierplank with green and blue stripes, eleven glass holders and an engraved acrylic centre piece" loading="lazy"></div>
+            <div class="card__body">
+              <span class="tag"><i class="dot dot--red"></i>2021 · Laser cutting · 3D printing</span>
+              <h3 class="title"><button class="card__open" type="button" aria-haspopup="dialog">Over-engineering a bierplank</button></h3>
+              <p>A custom beer board for my JC, designed in Onshape and still going strong five years later.</p>
+              <span class="card__more" aria-hidden="true">Read more &rarr;</span>
+            </div>
+            <div class="project__detail" hidden>
+              <p class="kicker kicker--red">2021 — Personal project</p>
+              <h2 class="headline">Over-engineering a bierplank</h2>
+              <p>One of my most important projects: a custom bierplank for my JC. I designed it in Onshape with 11 holes, laser cut from two 6&nbsp;mm sheets of wood that are cross-bonded together for strength. The centre piece is a laser-engraved 6&nbsp;mm sheet of acrylic with a painted stencil behind it, which gives a coloured drop-shadow effect.</p>
+              <p>Designed by me, made with a friend. It was a lot of work, but five years later it still performs amazingly.</p>
+              <p>A later addition: 3D-printed inserts that hold the glasses better when walking through a full kroeg.</p>
+              <ul class="tags">
+                <li class="tag"><i class="dot dot--blue"></i>Onshape</li>
+                <li class="tag"><i class="dot dot--orange"></i>Laser cutting &amp; engraving</li>
+                <li class="tag"><i class="dot dot--orange"></i>3D printing</li>
+                <li class="tag"><i class="dot dot--green"></i>Painting</li>
+              </ul>
+              <div class="gallery">
+                <img src="assets/projects/bierplank-1.jpg" alt="The finished bierplank in use, with green and blue stripes and the engraved acrylic centre" loading="lazy">
+                <img src="assets/projects/bierplank-2.jpg" alt="The bierplank on the workbench while being painted, with paint pots in the background" loading="lazy">
+              </div>
+            </div>
+          </li>
+
+          <li class="card slide card--soon">
+            <div class="card__media ph ph--orange" aria-hidden="true"></div>
+            <div class="card__body">
+              <span class="tag"><i class="dot dot--orange"></i>Car projects</span>
+              <h3 class="title">More projects coming soon</h3>
+              <p>Working on cars: fixing them, restoring them and improving them.</p>
+            </div>
+          </li>
+
+        </ul>
+        <div class="carousel__controls">
+          <button class="btn btn--glass carousel__btn" type="button" data-dir="-1" aria-controls="projects-track" aria-label="Previous project">&larr;</button>
+          <button class="btn btn--glass carousel__btn" type="button" data-dir="1" aria-controls="projects-track" aria-label="Next project">&rarr;</button>
+        </div>
       </div>
     </div>
   </section>
@@ -288,11 +309,23 @@
   </div>
 </footer>
 
+<dialog class="project-dialog" id="project-dialog" aria-label="Project details">
+  <div class="project-dialog__panel">
+    <button class="btn btn--glass project-dialog__close" type="button" aria-label="Close project">&times;</button>
+    <div class="project-dialog__content"></div>
+  </div>
+</dialog>
+
 <script>
   document.querySelectorAll('.carousel').forEach(function (c) {
     var track = c.querySelector('.carousel__track');
     var slides = Array.prototype.slice.call(track.querySelectorAll('.slide'));
     function offset(el) { return el.getBoundingClientRect().left - track.getBoundingClientRect().left + track.scrollLeft; }
+    var controls = c.querySelector('.carousel__controls');
+    function toggleControls() { controls.hidden = track.scrollWidth <= track.clientWidth + 4; }
+    toggleControls();
+    window.addEventListener('resize', toggleControls);
+    window.addEventListener('load', toggleControls);
     c.querySelectorAll('.carousel__btn').forEach(function (b) {
       b.addEventListener('click', function () {
         var current = 0, best = Infinity;
@@ -308,6 +341,23 @@
       });
     });
   });
+  var dialog = document.getElementById('project-dialog');
+  var dialogContent = dialog.querySelector('.project-dialog__content');
+  var lastOpener = null;
+  document.querySelectorAll('.project').forEach(function (card) {
+    var opener = card.querySelector('.card__open');
+    var detail = card.querySelector('.project__detail');
+    if (!opener || !detail) return;
+    opener.addEventListener('click', function () {
+      dialogContent.innerHTML = detail.innerHTML;
+      lastOpener = opener;
+      dialog.showModal();
+      dialog.scrollTop = 0;
+    });
+  });
+  dialog.querySelector('.project-dialog__close').addEventListener('click', function () { dialog.close(); });
+  dialog.addEventListener('click', function (e) { if (e.target === dialog) dialog.close(); });
+  dialog.addEventListener('close', function () { if (lastOpener) lastOpener.focus(); });
 </script>
 </body>
 </html>
