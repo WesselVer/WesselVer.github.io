@@ -73,12 +73,45 @@
             <li>Organised the Boat Reveal 2025, where the team unveiled its new boat.</li>
             <li>Ran the financial administration and budget, so resources went where the team needed them.</li>
           </ul>
+          <div class="stat-row">
+            <div class="stat"><span class="stat__n">1</span><span class="stat__l">year full-time in a student team</span></div>
+            <div class="stat"><span class="stat__n">2</span><span class="stat__l">roles: partners &amp; finance, events</span></div>
+            <div class="stat"><span class="stat__n">2025</span><span class="stat__l">Boat Reveal, organised end to end</span></div>
+          </div>
         </div>
-        <aside class="stat-stack">
-          <div class="stat"><span class="stat__n">1</span><span class="stat__l">year full-time in a student team</span></div>
-          <div class="stat"><span class="stat__n">2</span><span class="stat__l">roles: partners &amp; finance, events</span></div>
-          <div class="stat"><span class="stat__n">2025</span><span class="stat__l">Boat Reveal, organised end to end</span></div>
-        </aside>
+        <figure class="sbt-photo">
+          <img src="assets/sbt/side.jpg" alt="Wessel in a Solar Boat Twente shirt talking with a visitor next to the boat's solar panels">
+        </figure>
+      </div>
+
+      <!-- Photo carousel: to add a photo, copy one <li class="slide"> and change src, alt and caption -->
+      <div class="carousel" aria-roledescription="carousel" aria-label="Solar Boat Twente photos">
+        <ul class="carousel__track" id="sbt-track" tabindex="0">
+          <li class="slide">
+            <img src="assets/sbt/sbt-1.jpg" alt="Wessel presenting on stage in front of a screen reading Boat Reveal 2025" loading="lazy">
+            <p class="slide__cap">Presenting at the Boat Reveal 2025</p>
+          </li>
+          <li class="slide">
+            <img src="assets/sbt/sbt-2.jpg" alt="Wessel in the team workshop holding a black boat part, next to the boat covered in sponsor logos" loading="lazy" style="object-position: 50% 30%">
+            <p class="slide__cap">In the workshop</p>
+          </li>
+          <li class="slide">
+            <img src="assets/sbt/sbt-3.jpg" alt="Drone shot of the team's pit area on a quay, with the solar boat moored in front" loading="lazy">
+            <p class="slide__cap">Race pit from above, August 2025</p>
+          </li>
+          <li class="slide">
+            <img src="assets/sbt/sbt-4.jpg" alt="The Solar Boat Twente boat on a stand in an empty industrial hall" loading="lazy">
+            <p class="slide__cap">The boat in the hall</p>
+          </li>
+          <li class="slide">
+            <img src="assets/sbt/sbt-5.jpg" alt="Solar boats from several teams waiting in a lock, with spectators along the side" loading="lazy">
+            <p class="slide__cap">Racing season, June 2025</p>
+          </li>
+        </ul>
+        <div class="carousel__controls">
+          <button class="btn btn--glass carousel__btn" type="button" data-dir="-1" aria-controls="sbt-track" aria-label="Previous photo">&larr;</button>
+          <button class="btn btn--glass carousel__btn" type="button" data-dir="1" aria-controls="sbt-track" aria-label="Next photo">&rarr;</button>
+        </div>
       </div>
     </div>
   </section>
@@ -255,5 +288,21 @@
   </div>
 </footer>
 
+<script>
+  document.querySelectorAll('.carousel').forEach(function (c) {
+    var track = c.querySelector('.carousel__track');
+    c.querySelectorAll('.carousel__btn').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var slide = track.querySelector('.slide');
+        var step = slide ? slide.getBoundingClientRect().width + 24 : track.clientWidth;
+        var dir = Number(b.dataset.dir);
+        var atEnd = track.scrollLeft + track.clientWidth >= track.scrollWidth - 4;
+        if (dir > 0 && atEnd) track.scrollTo({ left: 0, behavior: 'smooth' });
+        else if (dir < 0 && track.scrollLeft <= 4) track.scrollTo({ left: track.scrollWidth, behavior: 'smooth' });
+        else track.scrollBy({ left: dir * step, behavior: 'smooth' });
+      });
+    });
+  });
+</script>
 </body>
 </html>
