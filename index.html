@@ -227,31 +227,62 @@
     <div class="wrap">
       <p class="kicker kicker--green">2020 – 2027: Uni Projects</p>
       <h2 class="headline">Projects throughout my academic career</h2>
-      <div class="grid">
-        <article class="card">
-          <div class="card__media ph ph--green" aria-hidden="true"></div>
-          <div class="card__body">
-            <span class="tag"><i class="dot dot--green"></i>TU Eindhoven · MSc</span>
-            <h3 class="title">Master Industrial Design Engineering</h3>
-            <p>2025 – 2027. Master projects coming soon.</p>
-          </div>
-        </article>
-        <article class="card">
-          <div class="card__media ph ph--blue" aria-hidden="true"></div>
-          <div class="card__body">
-            <span class="tag"><i class="dot dot--green"></i>University of Twente · BSc</span>
-            <h3 class="title">Creative Technology graduation project</h3>
-            <p>2024. Graduated with an 8.4. Write-up coming soon.</p>
-          </div>
-        </article>
-        <article class="card">
-          <div class="card__media ph ph--purple" aria-hidden="true"></div>
-          <div class="card__body">
-            <span class="tag"><i class="dot dot--green"></i>University of Twente</span>
-            <h3 class="title">Teaching assistant, electronics labs</h3>
-            <p>2022 – 2023. Helped students with oscilloscopes and measuring equipment, troubleshooting experiments and checking their models.</p>
-          </div>
-        </article>
+      <!-- Uni projects carousel, newest first. Same pattern as the personal projects above. -->
+      <div class="carousel carousel--cards" aria-roledescription="carousel" aria-label="University projects">
+        <ul class="carousel__track" id="uni-track" tabindex="0">
+
+          <li class="card slide card--soon">
+            <div class="card__media ph ph--green" aria-hidden="true"></div>
+            <div class="card__body">
+              <span class="tag"><i class="dot dot--green"></i>TU Eindhoven · MSc</span>
+              <h3 class="title">Master Industrial Design Engineering</h3>
+              <p>2025 – 2027. Master projects coming soon.</p>
+            </div>
+          </li>
+
+          <li class="card project slide">
+            <div class="card__media"><img src="assets/projects/ee-demo-1.jpg" alt="Concept sketch titled Power analogies: a home trainer in front of a board linking watts to household appliances" loading="lazy"></div>
+            <div class="card__body">
+              <span class="tag"><i class="dot dot--green"></i>2024 · University of Twente · BSc</span>
+              <h3 class="title">Electrical Engineering demonstrator</h3>
+              <p>My bachelor graduation project: a home trainer that shows visitors how much power they generate.</p>
+              <button class="card__more card__open" type="button" aria-haspopup="dialog">Read more<span class="sr-only"> about Electrical Engineering demonstrator</span> &rarr;</button>
+            </div>
+            <div class="project__detail" hidden>
+              <p class="kicker kicker--green">2024 — Bachelor graduation project</p>
+              <h2 class="headline">Electrical Engineering demonstrator</h2>
+              <p>For my bachelor graduation project in Creative Technology at the University of Twente, I had to show an independent design project backed by research. I worked together with the Faculty of Electrical Engineering, which wanted a demonstrator to show potential new students during open days.</p>
+              <p>I wanted to make the electrical concept of wattage tangible for people who aren't familiar with it. Visitors cycle on a home trainer, and the demonstrator shows how much power they generate, along with which everyday household appliance that power could run.</p>
+              <p>The construction is laser-cut wood, with an LED strip connected to the home trainer through an Arduino. The whole thing folds up and disconnects for easy transport.</p>
+              <ul class="tags">
+                <li class="tag"><i class="dot dot--green"></i>Arduino</li>
+                <li class="tag"><i class="dot dot--yellow"></i>LED strip</li>
+                <li class="tag"><i class="dot dot--orange"></i>Laser cutting</li>
+                <li class="tag"><i class="dot dot--blue"></i>Design research</li>
+              </ul>
+              <p class="gallery__hint">Click a photo to see it full size.</p>
+              <div class="gallery">
+                <img src="assets/projects/ee-demo-1.jpg" alt="Concept sketch titled Power analogies: a home trainer in front of a board linking watts to household appliances" loading="lazy">
+                <img src="assets/projects/ee-demo-2.jpg" alt="The finished Human Generator: a home trainer in front of a tall board with appliance drawings and an LED strip" loading="lazy">
+                <img src="assets/projects/ee-demo-3.jpg" alt="Back of the wooden board with the Arduino, wiring and hinged supports" loading="lazy">
+              </div>
+            </div>
+          </li>
+
+          <li class="card slide">
+            <div class="card__media ph ph--purple" aria-hidden="true"></div>
+            <div class="card__body">
+              <span class="tag"><i class="dot dot--green"></i>University of Twente</span>
+              <h3 class="title">Teaching assistant, electronics labs</h3>
+              <p>2022 – 2023. Helped students with oscilloscopes and measuring equipment, troubleshooting experiments and checking their models.</p>
+            </div>
+          </li>
+
+        </ul>
+        <div class="carousel__controls">
+          <button class="btn btn--glass carousel__btn" type="button" data-dir="-1" aria-controls="uni-track" aria-label="Previous project">&larr;</button>
+          <button class="btn btn--glass carousel__btn" type="button" data-dir="1" aria-controls="uni-track" aria-label="Next project">&rarr;</button>
+        </div>
       </div>
     </div>
   </section>
