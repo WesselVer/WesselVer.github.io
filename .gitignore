@@ -1,0 +1,7 @@
+# Images and documents in the root are local source files, not part of the site
+/*.jpg
+/*.jpeg
+/*.JPG
+/*.pdf
+.DS_Store
+.claude/
