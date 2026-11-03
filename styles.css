@@ -149,9 +149,17 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .backdrop--cool i:nth-child(1) { background: var(--blue); top: 4%; left: -10%; }
 .backdrop--cool i:nth-child(2) { background: var(--green); top: 46%; left: 64%; animation-delay: -8s; }
 .backdrop--cool i:nth-child(3) { background: var(--purple); top: 70%; left: 18%; animation-delay: -14s; }
+.backdrop i:nth-child(even) { animation-name: drift-alt; animation-duration: 34s; }
+.backdrop i:nth-child(3n) { animation-duration: 22s; }
 @keyframes drift {
-  from { transform: translate(0, 0) scale(1); }
-  to { transform: translate(4vw, 3vw) scale(1.08); }
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(5vw, 3vw) scale(1.08); }
+  100% { transform: translate(2vw, 6vw) scale(0.96); }
+}
+@keyframes drift-alt {
+  0% { transform: translate(0, 0) scale(1.04); }
+  50% { transform: translate(-4vw, 4vw) scale(0.95); }
+  100% { transform: translate(-6vw, -2vw) scale(1.06); }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -223,7 +231,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   backdrop-filter: blur(var(--glass-blur)) saturate(170%);
 }
 .hero__photo img {
-  width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; object-position: 45% 50%;
+  width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; object-position: 50% 50%;
   border-radius: var(--radius-lg);
 }
 @media (max-width: 900px) {
